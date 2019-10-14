@@ -3,10 +3,12 @@ package com.gustavodfs.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.gustavodfs.cursomc.domain.Categoria;
 import com.gustavodfs.cursomc.repositories.CategoriaRepository;
+import com.gustavodfs.cursomc.services.execptions.DataExceptionException;
 import com.gustavodfs.cursomc.services.execptions.ObjectNotFoundException;
 
 @Service
@@ -37,4 +39,12 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
+	public void delete(Integer id) {
+		buscar(id);
+		try {
+		repo.deleteById(id);
+	}catch (DataIntegrityViolationException e) {
+		throw new DataExceptionException("Não é possivel excluir uma categoria que possui produtos");
+	}
+	}
 }
