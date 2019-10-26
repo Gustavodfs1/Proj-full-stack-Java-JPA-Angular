@@ -1,7 +1,6 @@
 package com.gustavodfs.cursomc.resources;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.gustavodfs.cursomc.domain.Categoria;
+import com.gustavodfs.cursomc.dto.CategoriaDTO;
+import com.gustavodfs.cursomc.repositories.CategoriaRepository;
 import com.gustavodfs.cursomc.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 	
+	@Autowired
+	private CategoriaRepository repositorio;
 	
 	@Autowired
 	private CategoriaService service;
@@ -54,4 +57,14 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 		
 	 }
+	@RequestMapping(method= RequestMethod.GET)
+	 public ResponseEntity<List<CategoriaDTO>> findAll()
+	 {
+		 List<CategoriaDTO> listDto = repositorio.findAlltest();
+		//List<Categoria> list = service.findAll();
+		//List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		 return ResponseEntity.ok().body(listDto);
+		 
+		
+	}
 }

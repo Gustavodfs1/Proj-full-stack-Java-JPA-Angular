@@ -9,6 +9,6 @@ import com.gustavodfs.cursomc.domain.Pagamento;
 public interface PagamentoRepository extends JpaRepository<Pagamento, Integer> {
 
 	
-	
+
 	
 }
