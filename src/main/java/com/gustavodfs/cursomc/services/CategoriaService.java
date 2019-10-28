@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gustavodfs.cursomc.domain.Categoria;
+import com.gustavodfs.cursomc.dto.CategoriaDTO;
 import com.gustavodfs.cursomc.repositories.CategoriaRepository;
 import com.gustavodfs.cursomc.services.execptions.DataExceptionException;
 import com.gustavodfs.cursomc.services.execptions.ObjectNotFoundException;
@@ -62,5 +63,8 @@ public class CategoriaService {
 		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 		
+	}
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }
